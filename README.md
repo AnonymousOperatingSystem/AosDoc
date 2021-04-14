@@ -1,7 +1,3 @@
-#    AOS代码修改自EOS,除内部的零知识证明等匿名资产算法外,外部接口的基本使用方法和细节和EOS几乎完全一致。
-# 下面我将罗列AOS及EOS相关的链接和文档
-
-
 ## 一、中心化交易所充值AOS的基本方法
 ### eg. 前提假设：下面以用户aaaaaaaaaaaa需要充值'100.0000 AOS'到中心化交易所为实例
 #### 1. 首先，交易所需要提供一个aos账号给充值功能，假设账号名为'centralizede'
@@ -78,7 +74,8 @@
     "last_irreversible_block": 61586307,#last_irreversible_block不要从get_transaction获取，一定要从get_actions获取，所以此处的last_irreversible_block不要用 
 ```
 
-上述第一、二、三、四步中需要用到的调用接口（get_actions、get_transaction、get_info）详细描述和返回结果展示如下：
+##上述第一、二、三、四步中需要用到的调用接口（get_actions、get_transaction、get_info）详细描述和返回结果展示如下：
+
 #### <span id="get_actions">get_actions获取交易记录接口</span>
 curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{
   "pos": -1,
@@ -394,8 +391,9 @@ curl -X POST --url http://127.0.0.1:8888/v1/chain/get_info
 ```
 
 
-
 ## 二、EOS的核心源码及核心合约（深入研究者可以看看）
+AOS代码修改自EOS,除内部的零知识证明等匿名资产算法外,外部接口的基本使用方法和细节和EOS几乎完全一致，下面我将罗列AOS及EOS相关的链接和文档
+
 ### 1.EOS souce code
 https://github.com/EOSIO/eos
 ### 2.EOS Contract compile environment
