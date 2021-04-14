@@ -74,7 +74,7 @@
     "last_irreversible_block": 61586307,#last_irreversible_block不要从get_transaction获取，一定要从get_actions获取，所以此处的last_irreversible_block不要用 
 ```
 
-##上述第一、二、三、四步中需要用到的调用接口（get_actions、get_transaction、get_info）详细描述和返回结果展示如下：
+## 上述第一、二、三、四步中需要用到的调用接口（get_actions、get_transaction、get_info）详细描述和返回结果展示如下：
 
 #### <span id="get_actions">get_actions获取交易记录接口</span>
 curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{
