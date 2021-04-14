@@ -19,7 +19,7 @@ http://cw.hubwiz.com/card/c/cleos/1/1/1/
 
 ## 四、AOS使用Java(Sprint Boot)进行创建账号和转账的简单例子
 ### 1.项目使用 java14 和 sprint boot(包括 transfer 及 create account 例子)，你可以使用 Intelij Idea 2020.3 打开运行此项目
-https://github.com:aosopendoc/AosServerByJava.git
+JavaServerDemo(和此文件同github目录下)
 
 
 ### 2.EOS的android开发实例（AOS同样通用）(包括transfer,create account,get balance,gennerate privateKey等用例)
