@@ -40,12 +40,14 @@
             "status": "executed",
             "cpu_usage_us": 682,
             "net_usage_words": 18,
-            "trx": [
-                1,
-	......
+
+	.
+	.
+	.
+
 	"block_time": "2021-04-11T10:14:16.500",
     "block_num": 61109785,
-    "last_irreversible_block": 61586307,#last_irreversible_block不要从get_transaction获取，一定要从get_actions获取，所以此处的last_irreversible_block不要用
+    "last_irreversible_block": 61586307,#last_irreversible_block不要从get_transaction获取，一定要从get_actions获取，所以此处的last_irreversible_block不要用 
 ```
 ### 第四步. last_irreversible_block（下面例子为61586175）> block_num(下面例子为61109785), 所以确认交易不可逆了，完成充值
 
@@ -66,14 +68,17 @@
             "status": "executed",
             "cpu_usage_us": 682,
             "net_usage_words": 18,
-            "trx": [
-                1,
-	......
+
+	.
+	.
+	.
+
 	"block_time": "2021-04-11T10:14:16.500",
     "block_num": 61109785,
     "last_irreversible_block": 61586307,#last_irreversible_block不要从get_transaction获取，一定要从get_actions获取，所以此处的last_irreversible_block不要用 
 ```
 
+上述第一、二、三、四步中需要用到的调用接口（get_actions、get_transaction、get_info）详细描述和返回结果展示如下：
 #### <span id="get_actions">get_actions获取交易记录接口</span>
 curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{
   "pos": -1,
