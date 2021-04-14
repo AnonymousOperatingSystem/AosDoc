@@ -8,7 +8,9 @@
 #### 2. 交易所需要为每个用户提供一个字符串(数字或小写字母)，用于唯一标记一个用户，假设为用户A提供的字符串为'ab23'
 
 ### 现在用户开始充值
-### 第一步. 用户转账: 用户aaaaaaaaaaaa转账给'centralizede' '100.0000 AOS',并附带memo为'ab23'，在后面的[get_actions](#get_actions)将会获取到如下json片段
+### 第一步. 用户转账: 用户aaaaaaaaaaaa转账给'centralizede' '100.0000 AOS',并附带memo为'ab23'
+
+### 第二步. 交易所定时获取最新交易记录: 交易所通过[get_actions](#get_actions)接口，将会获取到centralizede的最新交易记录，通过交易记录中的额度以及memo,来判断是谁转帐过来了（参照下面get_actions接口），在后面的[get_actions](#get_actions)将会获取到如下json片段
 ```
 "data": {
     "from": "aaaaaaaaaaaa",
@@ -17,8 +19,6 @@
     "memo": "ab23"
 },
 ```
-
-### 第二步. 交易所定时获取最新交易记录: 交易所通过[get_actions](#get_actions)接口，将会获取到centralizede的最新交易记录，通过交易记录中的额度以及memo,来判断是谁转帐过来了（参照下面get_actions接口）
 
 ### 第三步. 确定不可逆: 但还需等待该交易所在区块不可逆后（大约2.5分钟，再次查看这条交易，如果能通过[get_transaction](#get_transaction)接口（下面提供了实例）查询到这条记录trx_id（如下面的[20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa](#20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa)），且确定该交易所在块（get_transaction接口返回的block_num）已经小于[get_info](#get_info)（下面古同了实例）返回的最新的last_irreversible_block，则可确定此交易不可逆）
 ### 第四步. 交易不可逆后，则完成充值
