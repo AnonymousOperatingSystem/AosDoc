@@ -33,8 +33,10 @@ https://github.com/swapnibble/EosCommander
 #### 2. 交易所需要为每个用户提供一个字符串(数字或小写字母)，用于唯一标记一个用户，假设为用户A提供的字符串为'ab23'
 
 ### 现在用户开始充值
-### 1. 用户aaaaaaaaaaaa转账给'centralizede' '100.0000 AOS',并附带memo为'ab23'
-### 3. 交易所通过get_actions接口，将会获取到centralizede的最新交易记录，通过交易记录中的额度以及memo,来判断是谁转帐过来了，但还需等待该交易所在区块不可逆后（大约2.5分钟，再次查看这条交易，如果能通过get_transaction接口查询到这条记录trx_id（如下面的20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa），且确定该交易所在块（get_transaction接口返回的block_num）已经小于get_info返回的最新的last_irreversible_block，则可确定此交易不可逆），完成充值
+### 1. 用户转账: 用户aaaaaaaaaaaa转账给'centralizede' '100.0000 AOS',并附带memo为'ab23'
+### 2. 交易所定时获取最新交易记录: 交易所通过get_actions接口，将会获取到centralizede的最新交易记录，通过交易记录中的额度以及memo,来判断是谁转帐过来了
+### 3. 确定不可逆: 但还需等待该交易所在区块不可逆后（大约2.5分钟，再次查看这条交易，如果能通过get_transaction接口查询到这条记录trx_id（如下面的20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa），且确定该交易所在块（get_transaction接口返回的block_num）已经小于get_info返回的最新的last_irreversible_block，则可确定此交易不可逆）
+### 4. 交易不可逆后，则完成充值
 
 
 #### get_actions获取交易记录接口
@@ -108,32 +110,6 @@ curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{
         }
     ],
     "last_irreversible_block": 61256343
-}
-```
-
-#### get_info获取节点当前最新信息接口 
-
-curl -X POST --url http://127.0.0.1:8888/v1/chain/get_info
-
-返回如下
-
-```
-{
-    "server_version": "95da4496",
-    "chain_id": "907345e081e731497946845186a03a50030c6c9ee14bacfcb1922feae873f31b",
-    "head_block_num": 61586506,
-    "last_irreversible_block_num": 61586175,
-    "last_irreversible_block_id": "03abbaffa6488fa3a3e839ffc31a97f590b92c0f661c9259b029d3af62876e9e",
-    "head_block_id": "03abbc4abc5668e247e4d6f518223dbf6bade3d1a37ebe254482425c8c464ef5",
-    "head_block_time": "2021-04-14T07:45:33.000",
-    "head_block_producer": "aosnairobi",
-    "virtual_block_cpu_limit": 3800000000,
-    "virtual_block_net_limit": 1048576000,
-    "block_cpu_limit": 3799900,
-    "block_net_limit": 1048576,
-    "server_version_string": "push-dirty",
-    "fork_db_head_block_num": 61586506,
-    "fork_db_head_block_id": "03abbc4abc5668e247e4d6f518223dbf6bade3d1a37ebe254482425c8c464ef5"
 }
 ```
 
@@ -347,5 +323,32 @@ curl -X POST --url http://127.0.0.1:8888/v1/history/get_transaction -d '{
             ]
         }
     ]
+}
+```
+
+
+#### get_info获取节点当前最新信息接口 
+
+curl -X POST --url http://127.0.0.1:8888/v1/chain/get_info
+
+返回如下
+
+```
+{
+    "server_version": "95da4496",
+    "chain_id": "907345e081e731497946845186a03a50030c6c9ee14bacfcb1922feae873f31b",
+    "head_block_num": 61586506,
+    "last_irreversible_block_num": 61586175,
+    "last_irreversible_block_id": "03abbaffa6488fa3a3e839ffc31a97f590b92c0f661c9259b029d3af62876e9e",
+    "head_block_id": "03abbc4abc5668e247e4d6f518223dbf6bade3d1a37ebe254482425c8c464ef5",
+    "head_block_time": "2021-04-14T07:45:33.000",
+    "head_block_producer": "aosnairobi",
+    "virtual_block_cpu_limit": 3800000000,
+    "virtual_block_net_limit": 1048576000,
+    "block_cpu_limit": 3799900,
+    "block_net_limit": 1048576,
+    "server_version_string": "push-dirty",
+    "fork_db_head_block_num": 61586506,
+    "fork_db_head_block_id": "03abbc4abc5668e247e4d6f518223dbf6bade3d1a37ebe254482425c8c464ef5"
 }
 ```
