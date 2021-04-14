@@ -20,8 +20,8 @@
 },
 ```
 
-### 第三步. 确定不可逆: 但还需等待该交易所在区块不可逆后（大约2.5分钟，再次查看这条交易，如果能通过[get_transaction](#get_transaction)接口（下面提供了实例）查询到这条记录trx_id（如下面的[20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa](#20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa)），且确定该交易所在块（get_transaction接口返回的block_num）已经小于[get_info](#get_info)（下面古同了实例）返回的最新的last_irreversible_block，则可确定此交易不可逆）
-### 第四步. 交易不可逆后，则完成充值
+### 第三步. 确定不可逆: 但还需等待该交易所在区块不可逆后（大约2.5分钟，再次查看这条交易，如果能通过[get_transaction](#get_transaction)接口（下面提供了实例）查询到这条记录trx_id（如下面例子的[20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa](#20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa)），且确定该交易所在块（get_transaction接口返回的block_num(下面例子为61109785)）已经小于[get_info](#get_info)（下面古同了实例）返回的最新的last_irreversible_block（61586175），则可确定此交易不可逆）
+### 第四步. last_irreversible_block（下面例子为61586175）> block_num(下面例子为61109785), 所以确认交易不可逆后，则完成充值
 
 
 #### <span id="get_actions">get_actions获取交易记录接口</span>
