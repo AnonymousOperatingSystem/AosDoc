@@ -10,9 +10,10 @@
 ### 现在用户开始充值
 ### 第一步. 用户转账: 用户aaaaaaaaaaaa转账给'centralizede' '100.0000 AOS',并附带memo为'ab23'
 
-### 第二步. 交易所定时获取最新交易记录: 交易所通过[get_actions](#get_actions)接口，将会获取到centralizede的最新交易记录，通过交易记录中的额度以及memo,来判断是谁转帐过来了（参照下面get_actions接口），在后面的[get_actions](#get_actions)将会获取到如下json片段
-```
+### 第二步. 交易所定时获取最新交易记录: 交易所通过[get_actions](#get_actions)接口，将会获取到centralizede的最新交易记录，通过交易记录中的额度以及memo,来判断是谁转帐过来了（参照下面get_actions接口）
+
 截取get_actions接口返回重点片段
+```
 "data": {
     "from": "aaaaaaaaaaaa",
     "to": "centralizede",
@@ -42,13 +43,21 @@
                 1,
 ```
 ### 第四步. last_irreversible_block（下面例子为61586175）> block_num(下面例子为61109785), 所以确认交易不可逆了，完成充值
-```
+
 截取get_info接口返回重点片段
+```
 {
     "server_version": "95da4496",
     "chain_id": "907345e081e731497946845186a03a50030c6c9ee14bacfcb1922feae873f31b",
     "head_block_num": 61586506,
     "last_irreversible_block_num": 61586175,
+```
+
+截取get_transaction接口返回重点片段
+```
+    "block_time": "2021-04-11T10:14:16.500",
+    "block_num": 61109785,
+    "last_irreversible_block": 61586307,
 ```
 
 #### <span id="get_actions">get_actions获取交易记录接口</span>
