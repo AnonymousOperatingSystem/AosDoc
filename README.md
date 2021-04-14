@@ -1,45 +1,30 @@
 #    AOS代码修改自EOS,除内部的零知识证明等匿名资产算法外,外部接口的基本使用方法和细节和EOS几乎完全一致。
 # 下面我将罗列AOS及EOS相关的链接和文档
 
-## 一、EOS的核心源码及核心合约（深入研究者可以看看）
-### 1.EOS souce code
-https://github.com/EOSIO/eos
-### 2.EOS Contract compile environment
-https://github.com/EOSIO/eosio.cdt
-### 3.EOS Core contract
-https://github.com/EOSIO/eosio.contracts
 
-
-## 二、EOS的http接口文档（内部采用了curl命令方式做为请求例子）
-http://cw.hubwiz.com/card/c/eos-rpc-api/
-
-## 三、命令行工具cleos（claos同样通用）文档
-http://cw.hubwiz.com/card/c/cleos/1/1/1/
-
-
-## 四、AOS使用Java(Sprint Boot)进行创建账号和转账的简单例子
-### 1.项目使用 java14 和 sprint boot(包括 transfer 及 create account 例子)，你可以使用 Intelij Idea 2020.3 打开运行此项目
-JavaServerDemo(和此文件同github目录下)
-
-
-### 2.EOS的android开发实例（AOS同样通用）(包括transfer,create account,get balance,gennerate privateKey等用例)
-https://github.com/swapnibble/EosCommander
-
-
-
-## 五、中心化交易所充值AOS的基本方法
+## 一、中心化交易所充值AOS的基本方法
 ### eg. 前提假设：下面以用户aaaaaaaaaaaa需要充值'100.0000 AOS'到中心化交易所为实例
 #### 1. 首先，交易所需要提供一个aos账号给充值功能，假设账号名为'centralizede'
 #### 2. 交易所需要为每个用户提供一个字符串(数字或小写字母)，用于唯一标记一个用户，假设为用户A提供的字符串为'ab23'
 
 ### 现在用户开始充值
-### 1. 用户转账: 用户aaaaaaaaaaaa转账给'centralizede' '100.0000 AOS',并附带memo为'ab23'
-### 2. 交易所定时获取最新交易记录: 交易所通过get_actions接口，将会获取到centralizede的最新交易记录，通过交易记录中的额度以及memo,来判断是谁转帐过来了
-### 3. 确定不可逆: 但还需等待该交易所在区块不可逆后（大约2.5分钟，再次查看这条交易，如果能通过get_transaction接口查询到这条记录trx_id（如下面的20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa），且确定该交易所在块（get_transaction接口返回的block_num）已经小于get_info返回的最新的last_irreversible_block，则可确定此交易不可逆）
-### 4. 交易不可逆后，则完成充值
+### 第一步. 用户转账: 用户aaaaaaaaaaaa转账给'centralizede' '100.0000 AOS',并附带memo为'ab23'，在后面的[get_actions](#get_actions)将会获取到如下json片段
+```
+"data": {
+    "from": "aaaaaaaaaaaa",
+    "to": "centralizede",
+    "quantity": "100.0000 AOS",
+    "memo": "ab23"
+},
+```
+
+### 第二步. 交易所定时获取最新交易记录: 交易所通过get_actions接口，将会获取到centralizede的最新交易记录，通过交易记录中的额度以及memo,来判断是谁转帐过来了（参照下面get_actions接口）
+
+### 第三步. 确定不可逆: 但还需等待该交易所在区块不可逆后（大约2.5分钟，再次查看这条交易，如果能通过get_transaction接口（下面提供了实例）查询到这条记录trx_id（如下面的20a5741360b6abce11e1c2e940c3b1afe4ec1d97be2900295b8ea678027191aa），且确定该交易所在块（get_transaction接口返回的block_num）已经小于get_info（下面古同了实例）返回的最新的last_irreversible_block，则可确定此交易不可逆）
+### 第四步. 交易不可逆后，则完成充值
 
 
-#### get_actions获取交易记录接口
+#### <span id="get_actions">get_actions获取交易记录接口</span>
 curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{
   "pos": -1,
   "offset": -20,
@@ -352,3 +337,29 @@ curl -X POST --url http://127.0.0.1:8888/v1/chain/get_info
     "fork_db_head_block_id": "03abbc4abc5668e247e4d6f518223dbf6bade3d1a37ebe254482425c8c464ef5"
 }
 ```
+
+
+
+## 二、EOS的核心源码及核心合约（深入研究者可以看看）
+### 1.EOS souce code
+https://github.com/EOSIO/eos
+### 2.EOS Contract compile environment
+https://github.com/EOSIO/eosio.cdt
+### 3.EOS Core contract
+https://github.com/EOSIO/eosio.contracts
+
+
+## 三、EOS的http接口文档（内部采用了curl命令方式做为请求例子）
+http://cw.hubwiz.com/card/c/eos-rpc-api/
+
+## 四、命令行工具cleos（claos同样通用）文档
+http://cw.hubwiz.com/card/c/cleos/1/1/1/
+
+
+## 五、AOS使用Java(Sprint Boot)进行创建账号和转账的简单例子
+### 1.项目使用 java14 和 sprint boot(包括 transfer 及 create account 例子)，你可以使用 Intelij Idea 2020.3 打开运行此项目
+JavaServerDemo(和此文件同github目录下)
+
+
+### 2.EOS的android开发实例（AOS同样通用）(包括transfer,create account,get balance,gennerate privateKey等用例)
+https://github.com/swapnibble/EosCommander
