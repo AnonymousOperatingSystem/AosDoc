@@ -57,7 +57,7 @@
 ```
     "block_time": "2021-04-11T10:14:16.500",
     "block_num": 61109785,
-    "last_irreversible_block": 61586307,
+    "last_irreversible_block": 61586307,#last_irreversible_block不要从get_transaction获取，一定要从get_actions获取，所以此处的last_irreversible_block不要用
 ```
 
 #### <span id="get_actions">get_actions获取交易记录接口</span>
